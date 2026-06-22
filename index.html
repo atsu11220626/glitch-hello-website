@@ -1,72 +1,1682 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- 
-      This is an HTML comment
-      You can write text in a comment and the content won't be visible in the page
-    -->
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junior Sunshine 5 - 個別マイれんしゅうアプリ</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for kids-friendly icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Kosugi Maru (rounded kids font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Kosugi Maru', 'Plus Jakarta Sans', sans-serif;
+            background-color: #f3fbf7;
+        }
+        .rainbow-bg {
+            background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
+        }
+        /* Custom animation for microphone pulse */
+        @keyframes pulse-mic {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0px rgba(239, 68, 68, 0.7); }
+            50% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+        }
+        .mic-active {
+            animation: pulse-mic 1.5s infinite;
+        }
+        /* Custom animation for characters */
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .char-bounce {
+            animation: bounce-slow 3s infinite ease-in-out;
+        }
+        /* Timer urgency pulse */
+        @keyframes timer-danger {
+            0%, 100% { transform: scale(1); color: #ef4444; }
+            50% { transform: scale(1.15); color: #b91c1c; }
+        }
+        .timer-pulse {
+            animation: timer-danger 0.5s infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 selection:bg-teal-200">
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="https://glitch.com/favicon.ico" />
-
-    <!--
-      This is the page head - it contains info the browser uses
-      Like the title, which appears on the browser tab but not inside the page
-      Further down you'll see the content that displays in the page
-    -->
-    <title>Hello World!</title>
-
-    <!-- The website stylesheet -->
-    <link rel="stylesheet" href="/style.css" />
-
-    <!-- The website JavaScript file -->
-    <script src="/script.js" defer></script>
-  </head>
-  <body>
-    <!--
-      The body includes the content you see in the page
-      Each element is defined using tags, like this <div></div>
-      The attributes like class="wrapper" let us style elements in the CSS
-    -->
-    <div class="wrapper">
-      <div class="content" role="main">
-        <h1 class="title">Hello World!</h1>
-        <img
-          src="https://cdn.glitch.com/a9975ea6-8949-4bab-addb-8a95021dc2da%2Fillustration.svg?v=1618177344016"
-          class="illustration"
-          alt="Editor illustration"
-          title="Click the image!"
-        />
-        <div class="instructions">
-          <h2>Using this project</h2>
-          <p>
-            This is the Glitch <strong>Hello Website</strong> project. You can
-            use it to build your own site. Check out the code in the editor and open
-            the <span class="fileopener" data-file="TODO.md" data-line="0"
-              >TODO</span> for next steps!
-          </p>
-          <!--  🚧 TODO: ADD BUTTON HERE -->
-
-          <!-- Once you've added the button from TODO.md, click it in the page -->
-          <!-- Check out the function in script.js to see how it works -->
+    <!-- Header -->
+    <header class="bg-white border-b-4 border-emerald-400 py-3 px-4 shadow-sm">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">🌻</span>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-extrabold text-emerald-600 tracking-wider">Junior Sunshine 5</h1>
+                    <p class="text-xs md:text-sm text-slate-500 font-bold">ALT おしゃべりパフォーマンステスト れんしゅう (Lesson 1 & 2)</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span id="api-status" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                    <span class="w-2 h-2 mr-1.5 bg-emerald-500 rounded-full"></span>じゅんびOK
+                </span>
+            </div>
         </div>
-      </div>
-    </div>
-    <!-- The footer holds our remix button — you can keep or delete it ✂ -->
-    <footer class="footer">
-      <div class="links"></div>
-      <a
-        class="btn--remix"
-        target="_top"
-        href="https://glitch.com/edit/#!/remix/glitch-hello-website"
-      >
-        <img
-          src="https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2FLogo_Color.svg?v=1618199565140"
-          alt=""
-        />
-        Remix on Glitch
-      </a>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-4xl w-full mx-auto p-4 flex flex-col justify-center">
+
+        <!-- PROFILE INPUT SCREEN (Shown First) -->
+        <div id="profile-screen" class="bg-white rounded-3xl border-4 border-emerald-300 p-6 md:p-8 shadow-xl space-y-6">
+            <div class="text-center space-y-2">
+                <span class="text-5xl char-bounce inline-block">📝</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-teal-700">まずは きみのことを おしえてね！</h2>
+                <p class="text-sm text-slate-500 font-bold">入力した内容（ないよう）に合わせて、きみ専用の問題とお手本ができあがるよ！</p>
+            </div>
+
+            <div class="bg-emerald-50/50 p-4 md:p-6 rounded-2xl border border-emerald-100 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Name -->
+                <div class="space-y-1.5">
+                    <label class="block text-sm font-extrabold text-teal-800">① なまえ（ローマ字でかこう）</label>
+                    <input type="text" id="prof-name" placeholder="例: Haruto" value="Haruto" class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-400 focus:outline-none font-bold text-lg">
+                </div>
+
+                <!-- Favorite Sport -->
+                <div class="space-y-1.5">
+                    <label class="block text-sm font-extrabold text-teal-800">② すきなスポーツ</label>
+                    <select id="prof-sport" onchange="toggleCustomInput('prof-sport')" class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-400 focus:outline-none font-bold text-lg bg-white">
+                        <option value="soccer">サッカー (soccer)</option>
+                        <option value="baseball" selected>野球 (baseball)</option>
+                        <option value="tennis">テニス (tennis)</option>
+                        <option value="basketball">バスケットボール (basketball)</option>
+                        <option value="swimming">水泳 (swimming)</option>
+                        <option value="dodgeball">ドッジボール (dodgeball)</option>
+                        <option value="badminton">バドミントン (badminton)</option>
+                        <option value="custom">✍️ 自分で入力する</option>
+                    </select>
+                    <div id="prof-sport-custom-container" class="hidden mt-2">
+                        <input type="text" id="prof-sport-custom" placeholder="例: rugby (ローマ字かえいごで書いてね)" class="w-full p-2.5 rounded-xl border-2 border-emerald-300 focus:ring-2 focus:ring-teal-400 focus:outline-none font-bold text-base bg-white">
+                    </div>
+                </div>
+
+                <!-- Birthday Month & Day -->
+                <div class="space-y-1.5">
+                    <label class="block text-sm font-extrabold text-teal-800">③ たんじょう日</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <select id="prof-birth-month" class="p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-400 focus:outline-none font-bold bg-white text-base">
+                            <option value="January">1月 (January)</option>
+                            <option value="February">2月 (February)</option>
+                            <option value="March">3月 (March)</option>
+                            <option value="April">4月 (April)</option>
+                            <option value="May">5月 (May)</option>
+                            <option value="June">6月 (June)</option>
+                            <option value="July">7月 (July)</option>
+                            <option value="August">8月 (August)</option>
+                            <option value="September">9月 (September)</option>
+                            <option value="October" selected>10月 (October)</option>
+                            <option value="November">11月 (November)</option>
+                            <option value="December">12月 (December)</option>
+                        </select>
+                        <select id="prof-birth-day" class="p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-400 focus:outline-none font-bold bg-white text-base">
+                            <!-- Populated dynamically via JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Favorite Food -->
+                <div class="space-y-1.5">
+                    <label class="block text-sm font-extrabold text-teal-800">④ すきな食べもの</label>
+                    <select id="prof-food" onchange="toggleCustomInput('prof-food')" class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-400 focus:outline-none font-bold text-lg bg-white">
+                        <option value="curry" selected>カレー (curry)</option>
+                        <option value="sushi">寿司 (sushi)</option>
+                        <option value="pizza">ピザ (pizza)</option>
+                        <option value="ramen">ラーメン (ramen)</option>
+                        <option value="hamburgers">ハンバーガー (hamburgers)</option>
+                        <option value="ice cream">アイス (ice cream)</option>
+                        <option value="custom">✍️ 自分で入力する</option>
+                    </select>
+                    <div id="prof-food-custom-container" class="hidden mt-2">
+                        <input type="text" id="prof-food-custom" placeholder="例: cake (ローマ字かえいごで書いてね)" class="w-full p-2.5 rounded-xl border-2 border-emerald-300 focus:ring-2 focus:ring-teal-400 focus:outline-none font-bold text-base bg-white">
+                    </div>
+                </div>
+
+                <!-- Birthday Want -->
+                <div class="space-y-1.5 md:col-span-2">
+                    <label class="block text-sm font-extrabold text-teal-800">⑤ たんじょう日に ほしいもの</label>
+                    <select id="prof-want" onchange="toggleCustomInput('prof-want')" class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-400 focus:outline-none font-bold text-lg bg-white">
+                        <option value="a new soccer ball">新しいサッカーボール (a new soccer ball)</option>
+                        <option value="a watch">腕時計 (a watch)</option>
+                        <option value="a bicycle">自転車 (a bicycle)</option>
+                        <option value="new sneakers" selected>新しいスニーカー (new sneakers)</option>
+                        <option value="a game">ゲーム (a game)</option>
+                        <option value="a pet dog">ペットの犬 (a pet dog)</option>
+                        <option value="a pet cat">ペットの猫 (a pet cat)</option>
+                        <option value="custom">✍️ 自分で入力する</option>
+                    </select>
+                    <div id="prof-want-custom-container" class="hidden mt-2">
+                        <input type="text" id="prof-want-custom" placeholder="例: a book (ローマ字かえいごで書いてね)" class="w-full p-2.5 rounded-xl border-2 border-emerald-300 focus:ring-2 focus:ring-teal-400 focus:outline-none font-bold text-base bg-white">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center pt-2">
+                <button onclick="saveProfileAndContinue()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-lg py-4 px-10 rounded-2xl transition shadow-lg hover:scale-[1.02] flex items-center gap-2">
+                    プロフィールを登録して設定にすすむ <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Welcome and Settings Screen -->
+        <div id="welcome-screen" class="hidden bg-white rounded-3xl border-4 border-emerald-300 p-6 md:p-10 shadow-xl text-center space-y-6">
+            <div class="space-y-3">
+                <div class="flex justify-center gap-4 char-bounce">
+                    <span class="text-5xl md:text-7xl">👩‍🏫</span>
+                    <span class="text-5xl md:text-7xl">👱‍♂️</span>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-teal-700 leading-tight">
+                    ALTの先生と おしゃべりテストの れんしゅう！
+                </h2>
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl py-2 px-4 inline-block text-sm font-bold text-amber-800">
+                    👋 こんにちは、<span id="welcome-user-name" class="text-lg font-black text-emerald-600">Haruto</span>さん！
+                    <button onclick="backToProfile()" class="ml-3 text-xs bg-white border border-amber-300 hover:bg-amber-100 text-amber-700 px-2 py-1 rounded-lg transition font-black">プロフ入力しなおす</button>
+                </div>
+            </div>
+
+            <!-- PRACTICE CONFIGURATION -->
+            <div class="bg-teal-50 border-2 border-teal-300 rounded-2xl p-5 max-w-2xl mx-auto space-y-4 text-left">
+                <h3 class="text-lg font-black text-teal-900 border-b-2 border-teal-200 pb-1.5 flex items-center gap-2">
+                    <i class="fas fa-sliders-h"></i> ⚙️ れんしゅうの 設定（せってい）をしよう！
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Questions Count Option -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-black text-teal-800">📝 もんだい数：</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button id="qnum-5" onclick="setQuestionCount(5)" class="py-2.5 px-4 rounded-xl border-2 border-teal-400 bg-teal-100 font-bold text-teal-900 hover:bg-teal-200 transition focus:outline-none">
+                                5問に挑戦！
+                            </button>
+                            <button id="qnum-10" onclick="setQuestionCount(10)" class="py-2.5 px-4 rounded-xl border-2 border-slate-200 bg-white font-bold text-slate-700 hover:bg-slate-100 transition focus:outline-none">
+                                10問に挑戦！
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Time Limit Option -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-black text-teal-800">⏰ 考えるじかん（制限時間）：</label>
+                        <div class="grid grid-cols-3 gap-2 text-xs">
+                            <button id="timer-none" onclick="setTimeLimit(0)" class="py-2 px-1 rounded-xl border-2 border-slate-200 bg-white font-bold text-slate-700 hover:bg-slate-100 transition focus:outline-none">
+                                なし
+                            </button>
+                            <button id="timer-10" onclick="setTimeLimit(10)" class="py-2 px-1 rounded-xl border-2 border-slate-200 bg-white font-bold text-slate-700 hover:bg-slate-100 transition focus:outline-none">
+                                10秒
+                            </button>
+                            <button id="timer-20" onclick="setTimeLimit(20)" class="py-2 px-1 rounded-xl border-2 border-teal-400 bg-teal-100 font-bold text-teal-900 hover:bg-teal-200 transition focus:outline-none">
+                                20秒
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Choose Practice Type -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                <!-- Mode 1 Card -->
+                <button onclick="startPractice('type1')" class="group text-left p-6 bg-amber-50 hover:bg-amber-100/80 border-4 border-amber-300 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-amber-300">
+                    <div class="flex items-center gap-4 mb-3">
+                        <span class="text-4xl p-2 bg-amber-200 rounded-xl">🇯🇵 ➡️ 🇬🇧</span>
+                        <h3 class="text-xl font-bold text-amber-800">1. 日本語を英語にしよう</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        日本語で「言いたいこと」が表示されるよ。すぐに英語で話してみよう！
+                    </p>
+                    <div class="mt-4 flex items-center justify-end text-sm font-bold text-amber-700 group-hover:translate-x-1 transition-transform">
+                        スタート <i class="fas fa-arrow-right ml-1"></i>
+                    </div>
+                </button>
+
+                <!-- Mode 2 Card -->
+                <button onclick="startPractice('type2')" class="group text-left p-6 bg-sky-50 hover:bg-sky-100/80 border-4 border-sky-300 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-sky-300">
+                    <div class="flex items-center gap-4 mb-3">
+                        <span class="text-4xl p-2 bg-sky-200 rounded-xl">👂 ➡️ 🗣️</span>
+                        <h3 class="text-xl font-bold text-sky-800">2. ALTのしつもんに答えよう</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        ALTの先生が英語で質問するよ。きみの情報（じょうほう）をもとに答えてみよう！
+                    </p>
+                    <div class="mt-4 flex items-center justify-end text-sm font-bold text-sky-700 group-hover:translate-x-1 transition-transform">
+                        スタート <i class="fas fa-arrow-right ml-1"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Practice Screen -->
+        <div id="practice-screen" class="hidden bg-white rounded-3xl border-4 border-teal-300 p-6 shadow-xl space-y-6 relative animate-fade-in">
+            
+            <!-- Progress Bar, Score, and Timer -->
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center border-b pb-4 gap-3">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <button onclick="exitPractice()" class="text-slate-400 hover:text-slate-600 transition p-2 hover:bg-slate-100 rounded-full" title="もどる">
+                            <i class="fas fa-arrow-left text-lg"></i>
+                        </button>
+                        <span id="practice-title" class="font-extrabold text-slate-700 text-sm md:text-base">モードタイトル</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between md:justify-end gap-3 flex-wrap">
+                    <!-- Custom Timer Badge -->
+                    <div id="timer-badge" class="hidden bg-amber-100 border border-amber-300 text-amber-800 px-3 py-1.5 rounded-full text-sm font-black flex items-center gap-1.5">
+                        <i class="fas fa-clock"></i> のこり: <span id="timer-sec" class="text-lg">20</span> 秒
+                    </div>
+                    
+                    <div class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full text-xs font-bold">
+                        問題 <span id="current-question-num">1</span> / <span id="total-question-num">10</span>
+                    </div>
+                    <div class="w-24 md:w-36 bg-slate-200 h-3 rounded-full overflow-hidden">
+                        <div id="progress-bar-fill" class="bg-teal-500 h-full transition-all duration-300" style="width: 10%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Area -->
+            <div id="question-box" class="bg-emerald-50/50 border-2 border-dashed border-emerald-200 rounded-2xl p-6 text-center space-y-4 animate-fade-in">
+                <div class="flex justify-center">
+                    <span id="question-icon" class="text-4xl md:text-5xl">💡</span>
+                </div>
+                <div class="space-y-2">
+                    <span id="question-sub" class="text-xs md:text-sm font-extrabold text-teal-600 block tracking-widest">日本語でお題：</span>
+                    <h3 id="question-text" class="text-xl md:text-2xl font-bold text-slate-800 leading-snug">私のなまえはハルトです。野球がすきです。</h3>
+                </div>
+                <!-- Support / Hint Button for Mode 2 -->
+                <div id="hint-button-container" class="hidden">
+                    <button onclick="toggleHint()" class="inline-flex items-center gap-2 text-xs font-bold text-sky-600 bg-sky-100 hover:bg-sky-200 px-3 py-1.5 rounded-full transition">
+                        <i class="fas fa-eye"></i> <span id="hint-btn-text">質問の英語を文字でみる</span>
+                    </button>
+                    <p id="hint-text" class="hidden mt-2 text-base text-sky-800 font-extrabold bg-sky-50 border border-sky-100 p-3 rounded-lg italic"></p>
+                </div>
+            </div>
+
+            <!-- Troubleshooting help container (shows if mic fails) -->
+            <div id="mic-trouble-box" class="hidden bg-rose-50 border border-rose-200 rounded-xl p-4 text-xs text-rose-800 space-y-2">
+                <p class="font-bold flex items-center gap-1.5"><i class="fas fa-exclamation-triangle"></i> マイクがつかえない・ブロックされているようです</p>
+                <p>
+                    このかんきょう（Googleサイトの仕様など）ではマイクが無効化されていることがあります。
+                    以下の<strong>「キーボードで英語をうつ」</strong>ボタンをおすと、タイピングして練習を続けることができます！
+                </p>
+                <div class="pt-1 flex gap-2">
+                    <button onclick="enableKeyboardInput()" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-1.5 px-3 rounded text-xs transition">
+                        ⌨️ 代わりにキーボードで英語をうつ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Status Indicator / Instruction text -->
+            <div class="text-center py-2">
+                <div id="rec-status-container" class="inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold bg-slate-100 text-slate-600 text-sm transition">
+                    <span id="status-dot" class="w-3.5 h-3.5 rounded-full bg-slate-400"></span>
+                    <span id="status-msg">じゅんび中</span>
+                </div>
+            </div>
+
+            <!-- Recording Action Area -->
+            <div id="mic-action-area" class="flex flex-col items-center justify-center space-y-4 py-4">
+                <button id="mic-btn" onclick="toggleRecording()" class="w-24 h-24 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all duration-200 shadow-lg focus:outline-none focus:ring-8 focus:ring-red-200 relative">
+                    <i class="fas fa-microphone text-4xl"></i>
+                </button>
+                <p id="mic-instruction" class="text-sm font-extrabold text-slate-500">上のマイクボタンを押して、英語で話してね！</p>
+            </div>
+
+            <!-- Fallback Text Input Area -->
+            <div id="text-input-area" class="hidden border-2 border-dashed border-teal-300 rounded-2xl p-4 bg-teal-50/30 space-y-3">
+                <label for="keyboard-input-box" class="block text-sm font-extrabold text-teal-800">
+                    ⌨️ 英語をここにタイピングしてください：
+                </label>
+                <div class="flex gap-2">
+                    <input type="text" id="keyboard-input-box" placeholder="例: My name is..." class="flex-grow p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-400 focus:outline-none text-base font-bold">
+                    <button onclick="submitTypedText()" class="bg-teal-600 hover:bg-teal-700 text-white font-extrabold px-6 py-2 rounded-xl transition">
+                        おくる
+                    </button>
+                </div>
+                <p class="text-[11px] text-slate-500">※マイクが使えなくてもAIがちゃんと英語をチェックしてくれます！</p>
+            </div>
+
+            <!-- User Speech recognition result (Live Speech Text) -->
+            <div id="speech-result-box" class="hidden border-2 border-slate-200 rounded-2xl p-4 bg-slate-50/50 space-y-2">
+                <div class="flex items-center gap-2 text-xs font-extrabold text-slate-500">
+                    <span id="speech-mode-indicator" class="inline-block w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                    <span id="speech-mode-label">聞きとった英語（きこえたえいご）：</span>
+                </div>
+                <p id="speech-text" class="text-xl font-bold text-emerald-700 italic min-h-[1.5rem] select-all">（ここに聞きとった英語が出ます）</p>
+                <div id="recognition-accuracy-note" class="text-[10px] text-slate-400">※話した英語がそのまま文字になります。合っているかたしかめよう！</div>
+            </div>
+
+            <!-- AI Evaluation & Model Answer section (Shows after recording completes) -->
+            <div id="evaluation-box" class="hidden space-y-5 border-t pt-5">
+                
+                <!-- LEVEL-BASED MODEL ANSWERS -->
+                <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 md:p-6 space-y-4">
+                    <div class="flex items-center justify-between border-b border-amber-200 pb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">📢</span>
+                            <span class="font-extrabold text-amber-900 text-base md:text-lg">レベル別お手本（おてほん）</span>
+                        </div>
+                        <span class="text-xs font-bold text-amber-700">※ボタンをおすとお手本が流れるよ！</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- C Level Card (△レベル) -->
+                        <div class="bg-slate-100 border-2 border-rose-300 rounded-xl p-3 flex flex-col justify-between shadow-sm relative">
+                            <span class="absolute top-2 right-2 bg-rose-100 text-rose-800 text-[10px] font-black px-2 py-0.5 rounded-full">△レベル</span>
+                            <div class="space-y-1 mt-2">
+                                <p class="text-xs font-extrabold text-rose-600">⚠️ 単語だけではたりないよ！</p>
+                                <p id="model-text-c" class="text-base font-extrabold text-slate-500 italic">Baseball.</p>
+                                <p class="text-[10px] text-slate-500 font-bold leading-tight pt-1">※本番テストでは点数がひくくなってしまいます。次は「文」で言えるように練習しよう！</p>
+                            </div>
+                            <button onclick="playModelAnswer('C')" class="mt-3 w-full bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold py-2 px-3 rounded-lg transition flex items-center justify-center gap-1.5">
+                                <i class="fas fa-volume-up"></i> 音声をきく
+                            </button>
+                        </div>
+
+                        <!-- B Level Card (Bレベル) -->
+                        <div class="bg-white border-2 border-emerald-400 rounded-xl p-3 flex flex-col justify-between shadow-sm relative">
+                            <span class="absolute top-2 right-2 bg-emerald-100 text-emerald-800 text-[10px] font-black px-2 py-0.5 rounded-full">Bレベル</span>
+                            <div class="space-y-1 mt-2">
+                                <p class="text-xs font-extrabold text-emerald-700">教科書（きょうかしょ）の文で言おう！</p>
+                                <p id="model-text-b" class="text-base font-extrabold text-amber-950 italic">I like baseball.</p>
+                                <p class="text-[10px] text-emerald-600 font-bold leading-tight pt-1">★合格（ごうかく）ライン！主語と動詞（しゅご・どうし）をいれて、文でおはなしできたらバッチリ！</p>
+                            </div>
+                            <button onclick="playModelAnswer('B')" class="mt-3 w-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold py-2 px-3 rounded-lg transition flex items-center justify-center gap-1.5">
+                                <i class="fas fa-volume-up"></i> 音声をきく
+                            </button>
+                        </div>
+
+                        <!-- A Level Card (Aレベル) -->
+                        <div class="bg-white border-2 border-indigo-400 rounded-xl p-3 flex flex-col justify-between shadow-sm relative">
+                            <span class="absolute top-2 right-2 bg-indigo-100 text-indigo-800 text-[10px] font-black px-2 py-0.5 rounded-full">Aレベル ★</span>
+                            <div class="space-y-1 mt-2">
+                                <p class="text-xs font-extrabold text-indigo-700">もう1つの情報を自然につなげよう！</p>
+                                <p id="model-text-a" class="text-base font-extrabold text-amber-950 italic">I like baseball. I like curry, too.</p>
+                                <p class="text-[10px] text-indigo-600 font-bold leading-tight pt-1">👑たいへんすばらしい！話した内容に関連する「もう1文」をプラスして、ALTの先生ともっとお話をつなごう！</p>
+                            </div>
+                            <button onclick="playModelAnswer('A')" class="mt-3 w-full bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-bold py-2 px-3 rounded-lg transition flex items-center justify-center gap-1.5">
+                                <i class="fas fa-volume-up"></i> 音声をきく
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Advice Box (Gemini generated feedback) -->
+                <div id="ai-feedback-container" class="bg-teal-50 border-2 border-teal-200 rounded-2xl p-4 md:p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">🤖</span>
+                            <h4 class="text-base md:text-lg font-bold text-teal-800">先生（AI）からのアドバイス</h4>
+                        </div>
+                        <div id="score-badge" class="bg-teal-600 text-white font-extrabold rounded-full px-4 py-1.5 flex items-center justify-center gap-1">
+                            <span id="score-text" class="text-xl">--</span>
+                            <span class="text-xs">点 / 100</span>
+                        </div>
+                    </div>
+
+                    <!-- Loading Feedback Placeholder -->
+                    <div id="feedback-loading" class="flex flex-col items-center justify-center py-6 space-y-3">
+                        <div class="w-10 h-10 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
+                        <p class="text-xs font-bold text-teal-700 animate-pulse">アドバイスをつくっています...</p>
+                    </div>
+
+                    <!-- Actual Advice Content -->
+                    <div id="feedback-content" class="hidden space-y-3 text-sm leading-relaxed text-slate-700">
+                        <div class="p-3 bg-white rounded-xl border border-teal-100">
+                            <p class="font-bold text-teal-800 mb-1">💬 先生からのコメント：</p>
+                            <p id="feedback-comment">ここにアドバイスが表示されます。</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl border border-teal-100 flex gap-2">
+                            <span class="text-lg">🎯</span>
+                            <div>
+                                <p class="font-bold text-teal-800 mb-1">はつおんのコツ：</p>
+                                <p id="feedback-tip">発音のアドバイスが表示されます。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation buttons (Next / Retry) -->
+                <div class="flex gap-4 justify-end pt-3">
+                    <button onclick="retryCurrentQuestion()" class="flex-1 md:flex-none border-2 border-slate-300 hover:bg-slate-50 text-slate-700 font-bold py-3 px-6 rounded-xl transition">
+                        もう一回れんしゅうする
+                    </button>
+                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 md:flex-none bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold py-3 px-8 rounded-xl transition shadow-lg">
+                        次の問題へ <i class="fas fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results / Completion Screen -->
+        <div id="results-screen" class="hidden bg-white rounded-3xl border-4 border-yellow-300 p-6 md:p-10 shadow-xl text-center space-y-8">
+            <div class="space-y-4">
+                <span class="text-7xl">🎉</span>
+                <h2 class="text-2xl md:text-4xl font-extrabold text-yellow-700">すべての れんしゅうが かんりょう！</h2>
+                <p class="text-slate-600 text-sm md:text-base max-w-lg mx-auto">
+                    設定した問題数を、しっかり走りぬいたね！テスト本番でもALTの先生と笑顔で話せるようにがんばろう！
+                </p>
+            </div>
+
+            <!-- Score breakdown -->
+            <div class="bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-6 max-w-md mx-auto">
+                <h4 class="font-extrabold text-yellow-800 mb-3 text-lg">今回の平均（へいきん）スコア</h4>
+                <div class="flex items-center justify-center gap-2">
+                    <span id="average-score-text" class="text-5xl font-black text-yellow-600">--</span>
+                    <span class="text-yellow-800 font-bold">点 / 100点満点</span>
+                </div>
+                <p class="text-xs text-yellow-700 mt-2">さいごまで挑戦して本当にえらい！はつおんの自信（じしん）がついたかな?</p>
+            </div>
+
+            <!-- Replay options -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                <button onclick="exitPractice()" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-3.5 px-8 rounded-xl transition shadow">
+                    メニューにもどる
+                </button>
+                <button onclick="restartSamePractice()" class="bg-teal-500 hover:bg-teal-600 text-white font-extrabold py-3.5 px-8 rounded-xl transition shadow-lg">
+                    もう一回れんしゅうする <i class="fas fa-redo ml-1"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Custom modal container -->
+        <div id="custom-modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl max-w-md w-full border-4 border-amber-300 p-6 space-y-4 shadow-2xl">
+                <div class="flex items-center gap-3 text-amber-600">
+                    <span class="text-3xl">⚠️</span>
+                    <h3 id="custom-modal-title" class="text-lg font-extrabold">おしらせ</h3>
+                </div>
+                <p id="custom-modal-desc" class="text-sm text-slate-700 leading-relaxed"></p>
+                <div class="flex justify-end pt-2">
+                    <button onclick="closeCustomModal()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-5 py-2 rounded-xl transition shadow">
+                        わかった！
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t py-4 px-4 text-center text-xs text-slate-500">
+        <p>© Junior Sunshine 5 Companion App. For ALT Performance Test Prep.</p>
+        <p class="mt-1 font-bold">※本アプリはGemini APIおよびSpeech Recognition APIを活用して動作しています。インターネット接続が必要です。</p>
     </footer>
-  </body>
+
+    <!-- Sound Processing and Interaction scripts -->
+    <script>
+        // Profile Data Object containing student settings
+        let studentProfile = {
+            name: "Haruto",
+            sport: "baseball",
+            birthMonth: "October",
+            birthDay: "12",
+            birthDayOrdinal: "twelfth",
+            food: "curry",
+            want: "new sneakers"
+        };
+
+        // Questions Database dynamically built from student settings
+        let dynamicQuestions = {
+            type1: [],
+            type2: []
+        };
+
+        // Custom practice parameters
+        let practiceSettings = {
+            questionsCount: 10,  // Default 10 questions
+            timeLimit: 20        // Default 20 seconds (0 means limitless)
+        };
+
+        // App States
+        let currentMode = null; 
+        let questions = [];
+        let currentIndex = 0;
+        let isRecording = false;
+        let recognition = null;
+        let finalTranscript = '';
+        let scoresCollected = [];
+        let currentAudio = null;
+        let isFallbackActive = false;
+
+        // Timer instance states
+        let timerInterval = null;
+        let secondsLeft = 0;
+
+        // API endpoints configurations
+        const API_KEY = ""; 
+        const textModelUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`;
+        const ttsModelUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
+
+        // Initialize speech synthesis (fallback if TTS API fails)
+        const sysSynth = window.speechSynthesis;
+
+        // Ordinal mapper helper
+        const ordinalDays = {
+            "1": "first", "2": "second", "3": "third", "4": "fourth", "5": "fifth",
+            "6": "sixth", "7": "seventh", "8": "eighth", "9": "ninth", "10": "tenth",
+            "11": "eleventh", "12": "twelfth", "13": "thirteenth", "14": "fourteenth", "15": "fifteenth",
+            "16": "sixteenth", "17": "seventeenth", "18": "eighteenth", "19": "nineteenth", "20": "twentieth",
+            "21": "twenty-first", "22": "twenty-second", "23": "twenty-third", "24": "twenty-fourth", "25": "twenty-fifth",
+            "26": "twenty-sixth", "27": "twenty-seventh", "28": "twenty-eighth", "29": "twenty-ninth", "30": "thirtieth",
+            "31": "thirty-first"
+        };
+
+        // Helper to convert "wanted items" into a natural context-related "I like ..." statement
+        function getRelatedLike(wantStr) {
+            const lower = wantStr.toLowerCase().trim();
+            
+            if (lower.includes("soccer ball")) return "soccer";
+            if (lower.includes("bicycle") || lower.includes("bike")) return "bicycles";
+            if (lower.includes("sneaker") || lower.includes("shoes")) return "sports";
+            if (lower.includes("dog")) return "dogs";
+            if (lower.includes("cat")) return "cats";
+            if (lower.includes("game")) return "games";
+            if (lower.includes("watch")) return "watches";
+            
+            if (lower.startsWith("a ")) {
+                const item = lower.substring(2).trim();
+                if (item.endsWith("y")) {
+                    return item.slice(0, -1) + "ies";
+                }
+                if (item.endsWith("s") || item.endsWith("sh") || item.endsWith("ch") || item.endsWith("x")) {
+                    return item + "es";
+                }
+                return item + "s";
+            }
+            return wantStr;
+        }
+
+        // Return translated Japanese values for profiling visualization
+        const sportJa = {
+            soccer: "サッカー", baseball: "野球", tennis: "テニス",
+            basketball: "バスケットボール", swimming: "水泳", dodgeball: "ドッジボール", badminton: "バドミントン"
+        };
+        const foodJa = {
+            curry: "カレー", sushi: "お寿司", pizza: "ピザ", ramen: "ラーメン", hamburgers: "ハンバーガー", "ice cream": "アイスクリーム"
+        };
+        const wantJa = {
+            "a new soccer ball": "新しいサッカーボール", "a watch": "腕時計", "a bicycle": "自転車",
+            "new sneakers": "新しいスニーカー", "a game": "ゲーム", "a pet dog": "ペットの犬", "a pet cat": "ペットの猫"
+        };
+        const monthJa = {
+            January: "1月", February: "2月", March: "3月", April: "4月", May: "5月", June: "6月",
+            July: "7月", August: "8月", September: "9月", October: "10月", November: "11月", December: "12月"
+        };
+
+        // Plays very dramatic kids-friendly game sound effects generated via Web Audio API (completely secure and robust)
+        function playFeedbackSound(level) {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const now = audioCtx.currentTime;
+
+                if (level === 'A') {
+                    // SUPER DRAMATIC A Level: Gold Fanfare with Drums and shiny arpeggio climax
+                    // Simulating a drum roll first
+                    for (let i = 0; i < 8; i++) {
+                        const noiseNode = audioCtx.createOscillator();
+                        const noiseGain = audioCtx.createGain();
+                        noiseNode.type = 'sawtooth';
+                        noiseNode.frequency.setValueAtTime(80 + Math.random() * 40, now + i * 0.05);
+                        noiseGain.gain.setValueAtTime(0.12, now + i * 0.05);
+                        noiseGain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.05 + 0.04);
+                        noiseNode.connect(noiseGain);
+                        noiseGain.connect(audioCtx.destination);
+                        noiseNode.start(now + i * 0.05);
+                        noiseNode.stop(now + i * 0.05 + 0.05);
+                    }
+
+                    // Bright soaring melody (C5 -> E5 -> G5 -> C6 -> E6 -> G6 climax!)
+                    const melody = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00];
+                    melody.forEach((f, idx) => {
+                        // Main tone
+                        const osc = audioCtx.createOscillator();
+                        const subOsc = audioCtx.createOscillator(); // Sub-harmony for fat dramatic sound
+                        const gainNode = audioCtx.createGain();
+                        
+                        osc.type = 'triangle';
+                        subOsc.type = 'sine';
+                        
+                        osc.frequency.setValueAtTime(f, now + 0.4 + idx * 0.07);
+                        subOsc.frequency.setValueAtTime(f * 0.5, now + 0.4 + idx * 0.07); // 1 Octave below
+                        
+                        gainNode.gain.setValueAtTime(0.25, now + 0.4 + idx * 0.07);
+                        if (idx === melody.length - 1) {
+                            // Hold the final winning note longer
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.4 + idx * 0.07 + 1.2);
+                        } else {
+                            gainNode.gain.exponentialRampToValueAtTime(0.05, now + 0.4 + idx * 0.07 + 0.15);
+                        }
+                        
+                        osc.connect(gainNode);
+                        subOsc.connect(gainNode);
+                        gainNode.connect(audioCtx.destination);
+                        
+                        osc.start(now + 0.4 + idx * 0.07);
+                        subOsc.start(now + 0.4 + idx * 0.07);
+                        
+                        osc.stop(now + 0.4 + idx * 0.07 + (idx === melody.length - 1 ? 1.3 : 0.2));
+                        subOsc.stop(now + 0.4 + idx * 0.07 + (idx === melody.length - 1 ? 1.3 : 0.2));
+                    });
+                } else if (level === 'B') {
+                    // DRAMATIC B Level: Standard bright "Ding-Dong! Ding-Dong!" double clear chimes
+                    const chimes = [659.25, 880.00, 659.25, 880.00]; // E5, A5, E5, A5
+                    chimes.forEach((f, idx) => {
+                        const osc = audioCtx.createOscillator();
+                        const overtone = audioCtx.createOscillator();
+                        const gainNode = audioCtx.createGain();
+                        
+                        osc.type = 'sine';
+                        overtone.type = 'sine';
+                        
+                        const timeOffset = idx * 0.15;
+                        osc.frequency.setValueAtTime(f, now + timeOffset);
+                        overtone.frequency.setValueAtTime(f * 2, now + timeOffset); // Sweet overtone
+                        
+                        gainNode.gain.setValueAtTime(0.18, now + timeOffset);
+                        gainNode.gain.exponentialRampToValueAtTime(0.005, now + timeOffset + 0.3);
+                        
+                        osc.connect(gainNode);
+                        overtone.connect(gainNode);
+                        gainNode.connect(audioCtx.destination);
+                        
+                        osc.start(now + timeOffset);
+                        overtone.start(now + timeOffset);
+                        osc.stop(now + timeOffset + 0.35);
+                        overtone.stop(now + timeOffset + 0.35);
+                    });
+                } else {
+                    // DRAMATIC C Level (△): Comical "Zukoooon..." descending sweep
+                    const osc = audioCtx.createOscillator();
+                    const sub = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    osc.type = 'sawtooth';
+                    sub.type = 'triangle';
+                    
+                    // High pitch dropping rapidly to a low vibration
+                    osc.frequency.setValueAtTime(900.00, now);
+                    osc.frequency.exponentialRampToValueAtTime(60.00, now + 1.2);
+                    
+                    sub.frequency.setValueAtTime(450.00, now);
+                    sub.frequency.exponentialRampToValueAtTime(30.00, now + 1.2);
+                    
+                    gainNode.gain.setValueAtTime(0.15, now);
+                    gainNode.gain.linearRampToValueAtTime(0.15, now + 0.6);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+                    
+                    osc.connect(gainNode);
+                    sub.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    osc.start(now);
+                    sub.start(now);
+                    osc.stop(now + 1.3);
+                    sub.stop(now + 1.3);
+                }
+            } catch (err) {
+                console.warn("Dynamic Audio Context sound failed to play", err);
+            }
+        }
+
+        // Setting dynamic limits
+        function setQuestionCount(num) {
+            practiceSettings.questionsCount = num;
+            document.getElementById('qnum-5').className = num === 5 
+                ? "py-2.5 px-4 rounded-xl border-2 border-teal-400 bg-teal-100 font-bold text-teal-900 focus:outline-none" 
+                : "py-2.5 px-4 rounded-xl border-2 border-slate-200 bg-white font-bold text-slate-700 hover:bg-slate-100 focus:outline-none";
+            document.getElementById('qnum-10').className = num === 10 
+                ? "py-2.5 px-4 rounded-xl border-2 border-teal-400 bg-teal-100 font-bold text-teal-900 focus:outline-none" 
+                : "py-2.5 px-4 rounded-xl border-2 border-slate-200 bg-white font-bold text-slate-700 hover:bg-slate-100 focus:outline-none";
+        }
+
+        function setTimeLimit(sec) {
+            practiceSettings.timeLimit = sec;
+            const buttons = ['none', '10', '20'];
+            buttons.forEach(b => {
+                const isSelected = (b === 'none' && sec === 0) || (b === b.toString() && sec === parseInt(b));
+                const el = document.getElementById(`timer-${b}`);
+                if (isSelected) {
+                    el.className = "py-2 px-1 rounded-xl border-2 border-teal-400 bg-teal-100 font-bold text-teal-900 focus:outline-none";
+                } else {
+                    el.className = "py-2 px-1 rounded-xl border-2 border-slate-200 bg-white font-bold text-slate-700 hover:bg-slate-100 focus:outline-none";
+                }
+            });
+        }
+
+        // Shows custom text input if "custom" is selected in dropdown
+        function toggleCustomInput(fieldId) {
+            const selectElement = document.getElementById(fieldId);
+            const customContainer = document.getElementById(`${fieldId}-custom-container`);
+            
+            if (selectElement.value === 'custom') {
+                customContainer.classList.remove('hidden');
+            } else {
+                customContainer.classList.add('hidden');
+            }
+        }
+
+        // Profile setup page functions
+        function saveProfileAndContinue() {
+            const nameIn = document.getElementById('prof-name').value.trim();
+            if (!nameIn) {
+                showCustomModal("なまえを教えてね", "ローマ字でなまえを入力してください！");
+                return;
+            }
+
+            let sportVal = document.getElementById('prof-sport').value;
+            if (sportVal === 'custom') {
+                const customSport = document.getElementById('prof-sport-custom').value.trim();
+                if (!customSport) {
+                    showCustomModal("すきなスポーツ", "自分で入力する欄が空欄（くうらん）です。入力してください！");
+                    return;
+                }
+                sportVal = customSport;
+                sportJa[sportVal] = sportVal;
+            }
+
+            let foodVal = document.getElementById('prof-food').value;
+            if (foodVal === 'custom') {
+                const customFood = document.getElementById('prof-food-custom').value.trim();
+                if (!customFood) {
+                    showCustomModal("すきな食べもの", "自分で入力する欄が空欄（くうらん）です。入力してください！");
+                    return;
+                }
+                foodVal = customFood;
+                foodJa[foodVal] = customFood;
+            }
+
+            let wantVal = document.getElementById('prof-want').value;
+            if (wantVal === 'custom') {
+                const customWant = document.getElementById('prof-want-custom').value.trim();
+                if (!customWant) {
+                    showCustomModal("誕生日にほしいもの", "自分で入力する欄が空欄（くうらん）です。入力してください！");
+                    return;
+                }
+                wantVal = customWant;
+                wantJa[wantVal] = customWant;
+            }
+
+            studentProfile.name = nameIn;
+            studentProfile.sport = sportVal;
+            studentProfile.birthMonth = document.getElementById('prof-birth-month').value;
+            studentProfile.birthDay = document.getElementById('prof-birth-day').value;
+            studentProfile.birthDayOrdinal = ordinalDays[studentProfile.birthDay] || "first";
+            studentProfile.food = foodVal;
+            studentProfile.want = wantVal;
+
+            // Generate customized dynamic questions with strictly acquired structures
+            buildCustomQuestions();
+
+            // Set visual components
+            document.getElementById('welcome-user-name').textContent = studentProfile.name;
+            
+            document.getElementById('profile-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+        }
+
+        function backToProfile() {
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('profile-screen').classList.remove('hidden');
+        }
+
+        function buildCustomQuestions() {
+            const name = studentProfile.name;
+            const sport = studentProfile.sport;
+            const sportTextJa = sportJa[sport] || sport;
+            const month = studentProfile.birthMonth;
+            const monthTextJa = monthJa[month] || month;
+            const dayNum = studentProfile.birthDay;
+            const dayOrdinal = studentProfile.birthDayOrdinal;
+            const food = studentProfile.food;
+            const foodTextJa = foodJa[food] || food;
+            const want = studentProfile.want;
+            const wantTextJa = wantJa[want] || want;
+
+            const relatedLike = getRelatedLike(want);
+
+            // STRICT Lesson 1 & Lesson 2 TEXTBOOK STRUCTURES ONLY
+            dynamicQuestions.type1 = [
+                {
+                    japanese: `私の名前は ${name} です。${sportTextJa} が好きです。`,
+                    icon: "👤",
+                    models: {
+                        C: `${name}.`,
+                        B: `My name is ${name}. I like ${sport}.`,
+                        A: `My name is ${name}. I like ${sport}. I play ${sport} every day.` 
+                    },
+                    hint: `My name is ${name}. I like ${sport}.`
+                },
+                {
+                    japanese: `あなたは ${foodTextJa} が好きですか？`,
+                    icon: "🍛",
+                    models: {
+                        C: `${food}?`,
+                        B: `Do you like ${food}?`,
+                        A: `Do you like ${food}? I like ${food}.` 
+                    },
+                    hint: `Do you like ${food}?`
+                },
+                {
+                    japanese: `私の誕生日は ${monthTextJa} ${dayNum}日 です。`,
+                    icon: "🎂",
+                    models: {
+                        C: `${month} ${dayOrdinal}.`,
+                        B: `My birthday is ${month} ${dayOrdinal}.`,
+                        A: `My birthday is ${month} ${dayOrdinal}. I want ${want}.` 
+                    },
+                    hint: `My birthday is ${month} ${dayOrdinal}.`
+                },
+                {
+                    japanese: `あなたの誕生日はいつですか？`,
+                    icon: "📅",
+                    models: {
+                        C: `When?`,
+                        B: `When is your birthday?`,
+                        A: `When is your birthday? My birthday is ${month} ${dayOrdinal}.` 
+                    },
+                    hint: `When is your birthday?`
+                },
+                {
+                    japanese: `誕生日に、私は ${wantTextJa} が欲しいです。`,
+                    icon: "🎁",
+                    models: {
+                        C: `${want}.`,
+                        B: `I want ${want} for my birthday.`,
+                        A: `I want ${want} for my birthday. I like ${relatedLike}.` 
+                    },
+                    hint: `I want ${want} for my birthday.`
+                },
+                {
+                    japanese: `私は ${sportTextJa} がとても好きです。`,
+                    icon: "🏅",
+                    models: {
+                        C: `${sport}.`,
+                        B: `I like ${sport} very much.`,
+                        A: `I like ${sport} very much. I play ${sport} with my friends.`
+                    },
+                    hint: `I like ${sport} very much.`
+                },
+                {
+                    japanese: `あなたは ${sportTextJa} をしますか？`,
+                    icon: "🏃‍♂️",
+                    models: {
+                        C: `Play?`,
+                        B: `Do you play ${sport}?`,
+                        A: `Do you play ${sport}? I like ${sport}.`
+                    },
+                    hint: `Do you play ${sport}?`
+                },
+                {
+                    japanese: `私は ${foodTextJa} が好きです。`,
+                    icon: "🍣",
+                    models: {
+                        C: `${food}.`,
+                        B: `I like ${food}.`,
+                        A: `I like ${food}. I eat ${food} every day.`
+                    },
+                    hint: `I like ${food}.`
+                },
+                {
+                    japanese: `あなたは誕生日に何が欲しいですか？`,
+                    icon: "🎁",
+                    models: {
+                        C: `What want?`,
+                        B: `What do you want for your birthday?`,
+                        A: `What do you want for your birthday? My birthday is ${month} ${dayOrdinal}.`
+                    },
+                    hint: `What do you want for your birthday?`
+                },
+                {
+                    japanese: `あなたは ${sportTextJa} が好きですか？`,
+                    icon: "⚾",
+                    models: {
+                        C: `Like?`,
+                        B: `Do you like ${sport}?`,
+                        A: `Do you like ${sport}? I like ${sport} very much.`
+                    },
+                    hint: `Do you like ${sport}?`
+                }
+            ];
+
+            dynamicQuestions.type2 = [
+                {
+                    questionText: "What's your name?",
+                    icon: "👱‍♂️",
+                    models: {
+                        C: `${name}.`,
+                        B: `My name is ${name}.`,
+                        A: `My name is ${name}. I like ${sport}.` 
+                    },
+                    hint: "名前を答えよう。(My name is ...)"
+                },
+                {
+                    questionText: `Do you like ${sport}?`,
+                    icon: "🎾",
+                    models: {
+                        C: `Yes.`,
+                        B: `Yes, I do. I like ${sport}.`,
+                        A: `Yes, I do. I like ${sport}. I play ${sport} every day.` 
+                    },
+                    hint: `${sportTextJa}は好き？(Yes, I do. I like ...)`
+                },
+                {
+                    questionText: "When is your birthday?",
+                    icon: "🎂",
+                    models: {
+                        C: `${month} ${dayOrdinal}.`,
+                        B: `My birthday is ${month} ${dayOrdinal}.`,
+                        A: `My birthday is ${month} ${dayOrdinal}. I want ${want}.` 
+                    },
+                    hint: "きみの誕生日を答えよう。(My birthday is ...)"
+                },
+                {
+                    questionText: "What do you want for your birthday?",
+                    icon: "🎁",
+                    models: {
+                        C: `${want}.`,
+                        B: `I want ${want} for my birthday.`,
+                        A: `I want ${want} for my birthday. I like ${relatedLike}.` 
+                    },
+                    hint: "誕生日に何がほしい？(I want ... for my birthday.)"
+                },
+                {
+                    questionText: `Do you like ${food}?`,
+                    icon: "🍕",
+                    models: {
+                        C: `Yes.`,
+                        B: `Yes, I do. I like ${food}.`,
+                        A: `Yes, I do. I like ${food}. I like ${food} very much.` 
+                    },
+                    hint: `${foodTextJa}は好き？(Yes, I do. I like ...)`
+                },
+                {
+                    questionText: "How are you today?",
+                    icon: "😊",
+                    models: {
+                        C: `Good.`,
+                        B: `I'm good.`,
+                        A: `I'm hungry. I want ${food}.`
+                    },
+                    hint: "今日の元気・調子を答えよう。(I'm good. / I'm happy. / I'm hungry. など)"
+                },
+                {
+                    questionText: "What sport do you like?",
+                    icon: "⚽",
+                    models: {
+                        C: `${sport}.`,
+                        B: `I like ${sport}.`,
+                        A: `I like ${sport}. I play ${sport} with my friends.`
+                    },
+                    hint: "何のスポーツが好きか答えよう。(I like ...)"
+                },
+                {
+                    questionText: "What food do you like?",
+                    icon: "🍦",
+                    models: {
+                        C: `${food}.`,
+                        B: `I like ${food}.`,
+                        A: `I like ${food}. I eat ${food} every day.`
+                    },
+                    hint: "何の食べ物が好きか答えよう。(I like ...)"
+                },
+                {
+                    questionText: `Do you play ${sport}?`,
+                    icon: "🏸",
+                    models: {
+                        C: `Yes.`,
+                        B: `Yes, I do. I play ${sport}.`,
+                        A: `Yes, I do. I play ${sport} with my friends.`
+                    },
+                    hint: `そのスポーツをふだんやるか答えよう。(Yes, I do. I play...)`
+                },
+                {
+                    questionText: `Do you want ${want} for your birthday?`,
+                    icon: "🎁",
+                    models: {
+                        C: `Yes.`,
+                        B: `Yes, I do. I want ${want}.`,
+                        A: `Yes, I do. I want ${want}. I like ${relatedLike}.`
+                    },
+                    hint: "それが本当に欲しいか答えよう。(Yes, I do. I want...)"
+                }
+            ];
+        }
+
+        function initRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                showCustomModal(
+                    "音声認識（おんせいにんしき）に対応していません", 
+                    "このブラウザはマイクでの音声入力に対応していません。<br>下の「代わりにキーボードでうつ」を使ってれんしゅうしましょう！"
+                );
+                enableKeyboardInput();
+                return false;
+            }
+            recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.interimResults = true;
+            recognition.maxAlternatives = 1;
+            recognition.continuous = false;
+
+            recognition.onstart = () => {
+                isRecording = true;
+                updateMicUI(true);
+                setRecordingStatus("recording", "きいています... 声にだして話そう！");
+                finalTranscript = '';
+                document.getElementById('mic-trouble-box').classList.add('hidden');
+                startCountdownTimer();
+            };
+
+            recognition.onresult = (event) => {
+                let interimTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+                const displaySpeech = finalTranscript || interimTranscript;
+                document.getElementById('speech-text').textContent = displaySpeech;
+                document.getElementById('speech-result-box').classList.remove('hidden');
+                document.getElementById('speech-mode-label').textContent = "聞きとった英語（きこえたえいご）：";
+                document.getElementById('speech-mode-indicator').className = "inline-block w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse";
+            };
+
+            recognition.onerror = (event) => {
+                console.error("Speech Recognition Error:", event.error);
+                let friendlyMsg = "うまく聞きとれませんでした。もう一度マイクを押してね！";
+                
+                if (event.error === 'not-allowed') {
+                    friendlyMsg = "マイクの使用が許可されていません。";
+                    document.getElementById('mic-trouble-box').classList.remove('hidden');
+                } else if (event.error === 'no-speech') {
+                    friendlyMsg = "声が聞こえませんでした。少し大きめの声で話してみてね。";
+                }
+                
+                setRecordingStatus("error", friendlyMsg);
+                stopRecordingState();
+            };
+
+            recognition.onend = () => {
+                stopRecordingState();
+                if (finalTranscript.trim() !== '') {
+                    processRecognizedSpeech(finalTranscript);
+                } else if (!isFallbackActive) {
+                    setRecordingStatus("idle", "声が聞こえませんでした。もう一度マイクを押してね！");
+                }
+            };
+            return true;
+        }
+
+        // Timer execution loops
+        function startCountdownTimer() {
+            stopCountdownTimer(); // reset if running
+            if (practiceSettings.timeLimit <= 0) {
+                document.getElementById('timer-badge').classList.add('hidden');
+                return;
+            }
+
+            secondsLeft = practiceSettings.timeLimit;
+            const badge = document.getElementById('timer-badge');
+            const secDisplay = document.getElementById('timer-sec');
+            
+            badge.classList.remove('hidden');
+            secDisplay.textContent = secondsLeft;
+            secDisplay.className = "text-lg";
+
+            timerInterval = setInterval(() => {
+                secondsLeft--;
+                secDisplay.textContent = secondsLeft;
+
+                if (secondsLeft <= 5) {
+                    secDisplay.className = "text-xl font-black timer-pulse";
+                }
+
+                if (secondsLeft <= 0) {
+                    stopCountdownTimer();
+                    if (isRecording && recognition) {
+                        recognition.stop(); // Stops, which triggers 'onend' to process whatever speech was captured
+                    }
+                }
+            }, 1000);
+        }
+
+        function stopCountdownTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        async function toggleRecording() {
+            // Check micro permissions and handle with direct UX cues
+            try {
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    await navigator.mediaDevices.getUserMedia({ audio: true });
+                }
+            } catch (err) {
+                console.warn("Permission denied or blocked by sandbox context.", err);
+                document.getElementById('mic-trouble-box').classList.remove('hidden');
+                setRecordingStatus("error", "マイクが使えません。タイピングにきりかえます。");
+                enableKeyboardInput();
+                return;
+            }
+
+            if (!recognition) {
+                if (!initRecognition()) return;
+            }
+
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                if (currentAudio) {
+                    currentAudio.pause();
+                }
+                try {
+                    recognition.start();
+                } catch (e) {
+                    console.error("Reinitializing recognition...", e);
+                    initRecognition();
+                    try {
+                        recognition.start();
+                    } catch (err) {
+                        enableKeyboardInput();
+                    }
+                }
+            }
+        }
+
+        function enableKeyboardInput() {
+            isFallbackActive = true;
+            document.getElementById('text-input-area').classList.remove('hidden');
+            document.getElementById('mic-action-area').classList.add('hidden');
+            document.getElementById('keyboard-input-box').focus();
+            setRecordingStatus("idle", "キーボードで英語を入力して「おくる」を押してね！");
+            startCountdownTimer();
+        }
+
+        function submitTypedText() {
+            const typedInput = document.getElementById('keyboard-input-box').value.trim();
+            if (typedInput === '') {
+                showCustomModal("おしらせ", "えいごをかいてね！");
+                return;
+            }
+
+            stopCountdownTimer();
+
+            document.getElementById('speech-text').textContent = typedInput;
+            document.getElementById('speech-result-box').classList.remove('hidden');
+            document.getElementById('speech-mode-label').textContent = "かいた英語（えいご）：";
+            document.getElementById('speech-mode-indicator').className = "inline-block w-2.5 h-2.5 rounded-full bg-teal-500";
+
+            processRecognizedSpeech(typedInput);
+        }
+
+        function stopRecordingState() {
+            isRecording = false;
+            stopCountdownTimer();
+            updateMicUI(false);
+        }
+
+        function updateMicUI(active) {
+            const micBtn = document.getElementById('mic-btn');
+            const micInstruction = document.getElementById('mic-instruction');
+            if (active) {
+                micBtn.classList.add('mic-active', 'bg-red-600');
+                micBtn.classList.remove('bg-red-500');
+                micInstruction.textContent = "話しおわったら、もう一度マイクボタンを押してね。";
+                micInstruction.classList.add('text-red-600');
+            } else {
+                micBtn.classList.remove('mic-active', 'bg-red-600');
+                micBtn.classList.add('bg-red-500');
+                micInstruction.textContent = "上のマイクボタンを押して、英語で話してね！";
+                micInstruction.classList.remove('text-red-600');
+            }
+        }
+
+        function setRecordingStatus(state, message) {
+            const dot = document.getElementById('status-dot');
+            const msg = document.getElementById('status-msg');
+            const container = document.getElementById('rec-status-container');
+
+            msg.textContent = message;
+            dot.className = "w-3.5 h-3.5 rounded-full ";
+            container.className = "inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm transition ";
+
+            if (state === 'idle') {
+                dot.classList.add('bg-amber-500');
+                container.classList.add('bg-amber-100', 'text-amber-800');
+            } else if (state === 'recording') {
+                dot.classList.add('bg-red-500', 'animate-pulse');
+                container.classList.add('bg-red-100', 'text-red-800');
+            } else if (state === 'evaluating') {
+                dot.classList.add('bg-teal-500', 'animate-bounce');
+                container.classList.add('bg-teal-100', 'text-teal-800');
+            } else if (state === 'error') {
+                dot.classList.add('bg-rose-500');
+                container.classList.add('bg-rose-100', 'text-rose-800');
+            } else {
+                dot.classList.add('bg-slate-400');
+                container.classList.add('bg-slate-100', 'text-slate-600');
+            }
+        }
+
+        async function processRecognizedSpeech(text) {
+            setRecordingStatus("evaluating", "アドバイスをかんがえ中...");
+            
+            document.getElementById('evaluation-box').classList.remove('hidden');
+            document.getElementById('feedback-loading').classList.remove('hidden');
+            document.getElementById('feedback-content').classList.add('hidden');
+            
+            const q = questions[currentIndex];
+            
+            document.getElementById('model-text-c').textContent = q.models.C;
+            document.getElementById('model-text-b').textContent = q.models.B;
+            document.getElementById('model-text-a').textContent = q.models.A;
+
+            // Auto-play standard B-level audio after 3 seconds for friendly auditory feedback
+            setTimeout(() => {
+                playModelAnswer('B');
+            }, 3200);
+
+            try {
+                const evaluation = await fetchSpeechEvaluation(text, q);
+                displayEvaluation(evaluation);
+            } catch (err) {
+                console.error("AI evaluation failed, applying fallback check", err);
+                const fallbackEval = generateSimpleEvaluation(text, q);
+                displayEvaluation(fallbackEval);
+            }
+        }
+
+        // Display evaluation generated by Gemini API
+        function displayEvaluation(evalData) {
+            document.getElementById('feedback-loading').classList.add('hidden');
+            document.getElementById('feedback-content').classList.remove('hidden');
+
+            document.getElementById('score-text').textContent = evalData.score;
+            document.getElementById('feedback-comment').textContent = evalData.comment;
+            document.getElementById('feedback-tip').textContent = evalData.pronunciationTip;
+
+            // Play synthesized levels feedback sounds based on dynamic thresholds
+            if (evalData.score >= 91) {
+                playFeedbackSound('A'); // GOLD FANFARE MELODY
+            } else if (evalData.score >= 75) {
+                playFeedbackSound('B'); // CLEAR合格 CHIMES
+            } else {
+                playFeedbackSound('C'); // COMICAL DOWNスライド
+            }
+
+            scoresCollected[currentIndex] = evalData.score;
+        }
+
+        // Fallback local scoring if Gemini API errors out
+        function generateSimpleEvaluation(userInput, questionObj) {
+            const inputLower = userInput.toLowerCase().replace(/[^a-z0-9 ]/g, '');
+            const modelLower = questionObj.models.B.toLowerCase().replace(/[^a-z0-9 ]/g, '');
+
+            let score = 60;
+            if (inputLower.includes(modelLower) || modelLower.includes(inputLower)) {
+                score = 95;
+            } else {
+                const inputWords = new Set(inputLower.split(' '));
+                const modelWords = new Set(modelLower.split(' '));
+                let matches = 0;
+                inputWords.forEach(w => { if (modelWords.has(w)) matches++; });
+                if (matches > 0) score = 70 + (matches * 6);
+            }
+            if (score > 100) score = 100;
+
+            return {
+                score: score,
+                comment: score >= 80 ? "よくがんばりました！ばっちりつたわっています！" : "おてほんを聞きながら、もういっかい声にだして練習しよう！",
+                pronunciationTip: "さいごまで はっきり話すと、もっとキレイに聞こえるよ！"
+            };
+        }
+
+        // Query Gemini API with structured instructions
+        async function fetchSpeechEvaluation(userInput, questionObj) {
+            const prompt = `
+            あなたは日本の小学校5年生を教えている優しい英語指導員（ALT）です。
+            お題/質問: "${currentMode === 'type1' ? questionObj.japanese : questionObj.questionText}"
+            お手本（△レベル＝単語のみ）: "${questionObj.models.C}"
+            お手本（Bレベル＝基本の1文）: "${questionObj.models.B}"
+            お手本（Aレベル＝プラス1情報の応用）: "${questionObj.models.A}"
+            
+            児童が実際に口で話した英語: "${userInput}"
+
+            【評価・アドバイスの条件】
+            1. 評価スコア(score)は 50〜100 点でつけてください。
+               ★重要ルール：単語のみ（お手本Cレベルに完全に一致する場合など）は不十分（△レベル）として、点数を60点〜74点程度に制限してください。
+               完全な一文（Bレベル）を話せている場合は75〜90点、さらに1つの情報を論理的に繋げている（Aレベル）なら91点以上（満点近く）としてください。
+            
+            2. アドバイスコメント(comment)に関する【最重要指示】：
+               これは「スピーキング（話すこと）」のテスト練習アプリです。
+               音声認識の変換ミスなどによって児童の英語のスペルがズレていたとしても、「つづり（スペル）がちがう」「書けた」「タイピング」「ノート」などの【書くこと（ライティング）に関する表現】は絶対に絶対に使わないでください。
+               すべて「しっかり声にだして言えたね！」「ALTの先生にばっちり伝わるよ！」「〜〜って言おうとした気持ちがすばらしい！」「きれいな発音で話せたね！」「つぎは主語と動詞をいれて文でおはなししてみよう！」など、
+               【声に出して話したこと・伝わること（スピーキング発話）】にのみ焦点をあてた優しい日本語（ひらがな多め）で書いてください。
+               
+            3. 発音のコツ(pronunciationTip)も、5年生にわかりやすい表現で1つアドバイスしてください。
+
+            必ず以下のJSON形式でのみ出力してください。
+            {
+              "score": 70,
+              "comment": "「〜〜」って大きな声でいえてとってもかっこいいよ！つぎは単語だけじゃなくて「I like...」からはじまる「文」でおはなしすると、ALTの先生にもっともっと伝わるよ！",
+              "pronunciationTip": "like の『 l (エル)』は、したの先をうえの歯のうしろにピタッとつけて言うと、もっとネイティブっぽくなるよ！"
+            }
+            `;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            "score": { "type": "NUMBER" },
+                            "comment": { "type": "STRING" },
+                            "pronunciationTip": { "type": "STRING" }
+                        },
+                        "required": ["score", "comment", "pronunciationTip"]
+                    }
+                }
+            };
+
+            const response = await fetch(textModelUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error("Gemini API Network error");
+
+            const result = await response.json();
+            const textJson = result.candidates?.[0]?.content?.parts?.[0]?.text;
+            return JSON.parse(textJson);
+        }
+
+        // Play specific level answers (C, B, A)
+        function playModelAnswer(level) {
+            const q = questions[currentIndex];
+            const textToSpeak = q.models[level];
+            const voice = (level === 'A') ? 'Fenrir' : 'Zephyr'; 
+            speakNativeTTS(textToSpeak, voice);
+        }
+
+        async function speakNativeTTS(text, voice = 'Zephyr') {
+            try {
+                const payload = {
+                    contents: [{
+                        parts: [{ text: text }]
+                    }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: voice }
+                            }
+                        }
+                    },
+                    model: "gemini-2.5-flash-preview-tts"
+                };
+
+                const response = await fetch(ttsModelUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error("TTS API unavailable");
+
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                    const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)?.[1] || "24000", 10);
+                    const pcmData = base64ToArrayBuffer(audioData);
+                    const pcm16 = new Int16Array(pcmData);
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    
+                    if (currentAudio) currentAudio.pause();
+                    currentAudio = new Audio(audioUrl);
+                    currentAudio.play();
+                    return;
+                }
+                throw new Error("Audio generation returned empty result");
+
+            } catch (err) {
+                console.warn("Gemini TTS failed, falling back to Browser SpeechSynthesis", err);
+                fallbackSpeak(text);
+            }
+        }
+
+        function fallbackSpeak(text) {
+            if (!sysSynth) return;
+            sysSynth.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85; 
+            
+            const voices = sysSynth.getVoices();
+            const enVoice = voices.find(v => v.lang.startsWith('en-US')) || voices.find(v => v.lang.startsWith('en'));
+            if (enVoice) utterance.voice = enVoice;
+            
+            sysSynth.speak(utterance);
+        }
+
+        // Base64 and Audio helper routines
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcm16, sampleRate) {
+            const buffer = new ArrayBuffer(44 + pcm16.length * 2);
+            const view = new DataView(buffer);
+
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + pcm16.length * 2, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, pcm16.length * 2, true);
+
+            for (let i = 0; i < pcm16.length; i++) {
+                view.setInt16(44 + i * 2, pcm16[i], true);
+            }
+
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        function startPractice(type) {
+            currentMode = type;
+            let fullPool = [...dynamicQuestions[type]];
+            
+            // Randomly shuffle questions
+            fullPool.sort(() => Math.random() - 0.5);
+            
+            // Slice based on user settings
+            questions = fullPool.slice(0, practiceSettings.questionsCount);
+            
+            currentIndex = 0;
+            scoresCollected = [];
+            
+            document.getElementById('practice-title').textContent = type === 'type1' 
+                ? "1. 日本語を英語にしよう" 
+                : "2. ALTのしつもんに答えよう";
+            document.getElementById('total-question-num').textContent = questions.length;
+            
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('practice-screen').classList.remove('hidden');
+            document.getElementById('results-screen').classList.add('hidden');
+
+            setupQuestion();
+        }
+
+        function setupQuestion() {
+            stopCountdownTimer();
+            const q = questions[currentIndex];
+            
+            document.getElementById('current-question-num').textContent = currentIndex + 1;
+            const progressPct = ((currentIndex + 1) / questions.length) * 100;
+            document.getElementById('progress-bar-fill').style.width = `${progressPct}%`;
+
+            // Reset evaluation sections
+            document.getElementById('speech-result-box').classList.add('hidden');
+            document.getElementById('speech-text').textContent = '';
+            document.getElementById('evaluation-box').classList.add('hidden');
+            document.getElementById('keyboard-input-box').value = '';
+            document.getElementById('timer-badge').classList.add('hidden');
+            
+            setRecordingStatus("idle", "スタートボタンを押してね！");
+
+            if (currentMode === 'type1') {
+                document.getElementById('question-icon').textContent = q.icon || "💡";
+                document.getElementById('question-sub').textContent = "日本語でお題：";
+                document.getElementById('question-text').textContent = q.japanese;
+                document.getElementById('hint-button-container').classList.add('hidden');
+            } else {
+                document.getElementById('question-icon').textContent = "👱‍♂️";
+                document.getElementById('question-sub').textContent = "ALTの先生から：";
+                document.getElementById('question-text').textContent = "👂 英語のしつもんを よくきいてね！";
+                
+                document.getElementById('hint-button-container').classList.remove('hidden');
+                document.getElementById('hint-text').classList.add('hidden');
+                document.getElementById('hint-text').textContent = q.questionText;
+                document.getElementById('hint-btn-text').textContent = "ALTのしつもんを文字（英語）でみる";
+
+                // Auto-play ALT Question after 1 second
+                setTimeout(() => {
+                    speakNativeTTS(q.questionText, 'Puck');
+                }, 1000);
+            }
+        }
+
+        function toggleHint() {
+            const hintText = document.getElementById('hint-text');
+            const hintBtnText = document.getElementById('hint-btn-text');
+            if (hintText.classList.contains('hidden')) {
+                hintText.classList.remove('hidden');
+                hintBtnText.textContent = "文字をかくす";
+            } else {
+                hintText.classList.add('hidden');
+                hintBtnText.textContent = "ALTのしつもんを文字（英語）でみる";
+            }
+        }
+
+        function nextQuestion() {
+            stopCountdownTimer();
+            if (currentAudio) currentAudio.pause();
+            
+            currentIndex++;
+            if (currentIndex < questions.length) {
+                setupQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function retryCurrentQuestion() {
+            stopCountdownTimer();
+            if (currentAudio) currentAudio.pause();
+            setupQuestion();
+        }
+
+        function showResults() {
+            stopCountdownTimer();
+            document.getElementById('practice-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.remove('hidden');
+
+            const sum = scoresCollected.reduce((acc, curr) => acc + (curr || 0), 0);
+            const avg = Math.round(sum / questions.length);
+            document.getElementById('average-score-text').textContent = isNaN(avg) ? "0" : avg;
+        }
+
+        function restartSamePractice() {
+            startPractice(currentMode);
+        }
+
+        function exitPractice() {
+            stopCountdownTimer();
+            if (currentAudio) currentAudio.pause();
+            if (recognition && isRecording) recognition.stop();
+            
+            isFallbackActive = false;
+            document.getElementById('text-input-area').classList.add('hidden');
+            document.getElementById('mic-action-area').classList.remove('hidden');
+            document.getElementById('mic-trouble-box').classList.add('hidden');
+
+            document.getElementById('practice-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+        }
+
+        // Secure, custom child-friendly popup modal window
+        function showCustomModal(title, desc) {
+            document.getElementById('custom-modal-title').innerHTML = title;
+            document.getElementById('custom-modal-desc').innerHTML = desc;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeCustomModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        // Handle window load initial verification
+        window.onload = function() {
+            // Pre-populate birthday options dynamically from 1st to 31st
+            const daySelect = document.getElementById('prof-birth-day');
+            daySelect.innerHTML = "";
+            for (let i = 1; i <= 31; i++) {
+                const opt = document.createElement('option');
+                const ordinal = ordinalDays[i.toString()] || `${i}th`;
+                opt.value = i.toString();
+                opt.textContent = `${i}日 (${ordinal})`;
+                if (i === 12) opt.selected = true;
+                daySelect.appendChild(opt);
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const apiStatus = document.getElementById('api-status');
+            if (!SpeechRecognition) {
+                apiStatus.textContent = "音声認識非対応";
+                apiStatus.className = "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800";
+                enableKeyboardInput();
+            }
+        }
+    </script>
+</body>
 </html>
